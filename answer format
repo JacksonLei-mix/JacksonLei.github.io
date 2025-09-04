@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+
+public class taskname {   // ⚠️ 改成题目名，比如 paint、blocks 等
+    public static void main(String[] args) throws IOException {
+        // 输入输出流
+        BufferedReader br = new BufferedReader(new FileReader("taskname.in"));  // ⚠️ 改成对应输入文件
+        PrintWriter out = new PrintWriter(new FileWriter("taskname.out"));      // ⚠️ 改成对应输出文件
+
+        // 使用 StringTokenizer 处理一行多数据
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());   // 示例：读一个整数
+
+        // ========== 在这里写核心逻辑 ==========
+        int ans = n * 2;   // 示例逻辑
+
+        // 输出答案
+        out.println(ans);
+
+        // 关闭输入输出流
+        br.close();
+        out.close();
+    }
+}

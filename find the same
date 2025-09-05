@@ -1,0 +1,7 @@
+List<String> list1 = new ArrayList<>(Arrays.asList("apple", "banana", "orange"));
+List<String> list2 = new ArrayList<>(Arrays.asList("banana", "kiwi", "orange"));
+
+List<String> common = new ArrayList<>(list1); 
+common.retainAll(list2);   // 保留和 list2 相同的部分
+
+System.out.println(common);  // [banana, orange]

@@ -1,0 +1,3 @@
+String[] parts = br.readLine().split(" ");  // 按空格分割
+        int n = Integer.parseInt(parts[0]);         // 3
+        int m = Integer.parseInt(parts[1]);         // 3

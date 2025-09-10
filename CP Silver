@@ -1,0 +1,82 @@
+import java.io.*;
+import java.util.*;
+
+public class CP {
+    public static void main(String[] args) throws IOException {
+
+        // Use standard input/output
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(System.out);
+
+        Map<Long, Long> ware = new HashMap<>();
+        String[] part1 = br.readLine().split(" ");
+
+        long N = Long.parseLong(part1[0]);
+        long A = Long.parseLong(part1[1]);
+        long B = Long.parseLong(part1[2]);
+
+        long[] identity = new long[(int) N];
+
+        long count = 0;
+
+        for (int i = 0; i < N; i++) {
+            String[] part2 = br.readLine().split(" ");
+            long number = Long.parseLong(part2[0]);
+            long keyValue = Long.parseLong(part2[1]);
+            ware.put(keyValue, number);
+            identity[i] = keyValue;
+        }
+
+        // First pass: try to pair elements with A or B
+        for (int i = 0; i < N; i++) {
+            long target = identity[i];
+            int prior = 0;
+
+            if (ware.getOrDefault(target, 0L) == 0) continue;
+
+            if (ware.containsKey(A - target) && ware.getOrDefault(A - target, 0L) > 0) {
+                prior = 1;
+            }
+            if (ware.containsKey(B - target) && ware.getOrDefault(B - target, 0L) > 0) {
+                if (prior == 1) {
+                    prior = 0;
+                } else {
+                    prior = 2;
+                }
+            }
+            if (target * 2 == A || target * 2 == B) {
+                prior = 0;
+            }
+
+            if (prior == 1) {
+                long subtract = Math.min(ware.get(target), ware.get(A - target));
+                count += subtract;
+                ware.put(target, ware.get(target) - subtract);
+                ware.put(A - target, ware.get(A - target) - subtract);
+            } else if (prior == 2) {
+                long subtract = Math.min(ware.get(target), ware.get(B - target));
+                count += subtract;
+                ware.put(target, ware.get(target) - subtract);
+                ware.put(B - target, ware.get(B - target) - subtract);
+            }
+        }
+
+        // Second pass: handle remaining pairs
+        for (int i = 0; i < N; i++) {
+            long target = identity[i];
+            long available = ware.getOrDefault(target, 0L);
+            if (available == 0) continue;
+
+            if ((A - target == target || B - target == target)) {
+                // Can pair with itself
+                long subtract = ware.get(target) / 2;
+                count += subtract;
+                ware.put(target, ware.get(target) - subtract * 2);
+            }
+        }
+
+        out.println(count);
+        br.close();
+        out.close();
+    }
+}

@@ -26,7 +26,7 @@ public class CP {
             ware.put(keyValue, number);
             identity[i] = keyValue;
         }
-
+        List<Long> RemoveList = new ArrayList<>();
         // First pass: try to pair elements with A or B
         for (int i = 0; i < N; i++) {
             long target = identity[i];

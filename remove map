@@ -1,0 +1,9 @@
+List<Long> toRemove = new ArrayList<>();
+for (Long key : ware.keySet()) {
+    if (ware.get(key) == 0) {
+        toRemove.add(key);
+    }
+}
+for (Long key : toRemove) {
+    ware.remove(key);
+}
